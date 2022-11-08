@@ -1,21 +1,54 @@
-import React from 'react';
-import {View, StyleSheet, TextInput, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, TextInput, SafeAreaView, Text} from 'react-native';
 import Icon1 from 'react-native-vector-icons/AntDesign';
 
 const SearchScreen = ({navigation}) => {
+  const [textCount, setTextCount] = useState('');
+
+  const handleClearText = () => {
+    setTextCount('');
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <View style={styles.navbar}>
-          <Icon1
-            name="arrowleft"
-            color={'black'}
-            size={22}
-            onPress={() => {
-              navigation.goBack();
-            }}></Icon1>
-          <TextInput placeholder="Search for City" style={styles.inputText} />
-        </View>
+        {textCount == '' ? (
+          <View style={styles.navbar}>
+            <Icon1
+              name="arrowleft"
+              color={'black'}
+              size={22}
+              onPress={() => {
+                navigation.goBack();
+              }}></Icon1>
+            <TextInput
+              placeholder="Search for City"
+              style={styles.inputText}
+              onChangeText={setTextCount}
+              value={textCount}
+            />
+          </View>
+        ) : (
+          <View style={styles.navbar}>
+            <Icon1
+              name="arrowleft"
+              color={'black'}
+              size={22}
+              onPress={() => {
+                navigation.goBack();
+              }}></Icon1>
+            <TextInput
+              placeholder="Search for City"
+              style={styles.inputText}
+              onChangeText={setTextCount}
+            />
+            <Icon1
+              name="close"
+              color={'black'}
+              size={22}
+              onPress={handleClearText}></Icon1>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -38,6 +71,7 @@ const styles = StyleSheet.create({
 
   inputText: {
     marginLeft: 30,
-    width: '70%',
+    width: '60%',
+    marginRight: 60,
   },
 });
