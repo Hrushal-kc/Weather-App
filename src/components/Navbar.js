@@ -1,9 +1,8 @@
 import React from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon1 from 'react-native-vector-icons/AntDesign';
 
-const Navbar = ({headText}) => {
+const Navbar = ({headText, arrowonPress, searchIcon, searchonPress}) => {
   return (
     <SafeAreaView>
       <View style={styles.navbar}>
@@ -11,14 +10,14 @@ const Navbar = ({headText}) => {
           name="arrowleft"
           color={'black'}
           size={22}
-          onPress={() => alert('Login with Facebook')}></Icon1>
+          onPress={arrowonPress}></Icon1>
         <View style={styles.container}>
           <Text style={styles.text}>{headText}</Text>
           <Icon1
-            name="search1"
+            name={searchIcon}
             color={'black'}
             size={22}
-            onPress={() => alert('Login with Facebook')}></Icon1>
+            onPress={searchonPress}></Icon1>
         </View>
       </View>
     </SafeAreaView>

@@ -1,11 +1,28 @@
 import React from 'react';
-import Navbar from './src/components/Navbar';
-import FavouriteScreen from './src/screens/FavouriteScreen';
-import HomeScreen from './src/screens/HomeScreen';
-import NoFavourite from './src/screens/NoFavouriteAdded';
+import {NavigationContainer} from '@react-navigation/native';
+import Screens from './src/navigation/DrawerNavigation';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SearchScreen from './src/screens/SearchScreen';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  return <NoFavourite />;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Screens"
+          component={Screens}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default App;

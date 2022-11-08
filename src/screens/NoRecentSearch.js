@@ -12,21 +12,21 @@ import Navbar from '../components/Navbar';
 import backgroundimage from '../../assets/background_android.png';
 import nothingLogo from '../../assets/icon_nothing.png';
 
-const NoFavourite = () => {
+const NoRecentSearch = () => {
   return (
     <ImageBackground source={backgroundimage} style={styles.image}>
       <SafeAreaView style={{flex: 1}}>
         <ScrollView style={{flex: 1}}>
           <Navbar
-            headText={'Favourite'}
-            arrowonPress={() => {
+            headText={'Recent Search'}
+            onPress={() => {
               navigation.goBack();
             }}
             searchIcon={'search1'}
           />
           <View style={styles.container}>
             <Image source={nothingLogo} />
-            <Text style={styles.nothingText}>No Favourites added</Text>
+            <Text style={styles.nothingText}>No Recent Search</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -34,7 +34,7 @@ const NoFavourite = () => {
   );
 };
 
-export default NoFavourite;
+export default NoRecentSearch;
 
 const styles = StyleSheet.create({
   image: {

@@ -7,8 +7,8 @@ import {
   Image,
   TouchableHighlight,
   ScrollView,
+  ImageBackground,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import weatherLogo from '../../assets/weatherLogo.png';
 import drawericon from '../../assets/icon_menu_white.png';
 import searchicon from '../../assets/icon_search_white.png';
@@ -16,24 +16,26 @@ import favouriteicon from '../../assets/icon_favourite.png';
 import temperatureicon from '../../assets/icon_temperature_info.png';
 import precipitationlogo from '../../assets/icon_precipitation_info.png';
 import humiditylogo from '../../assets/icon_humidity_info.png';
+import backgroundimage from '../../assets/background_android.png';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
-    <LinearGradient
-      colors={['#00BFFF', 'rgba(136,81,204,0.68)']}
-      style={styles.linearGradient}>
+    <ImageBackground source={backgroundimage} style={styles.backgroundimage}>
       <ScrollView>
         <SafeAreaView>
           <View>
             <View style={styles.navbar}>
               <View>
-                <TouchableHighlight onPress={() => alert('worked')}>
+                <TouchableHighlight onPress={() => navigation.openDrawer()}>
                   <Image source={drawericon} style={styles.drawerlogo} />
                 </TouchableHighlight>
               </View>
               <View style={styles.logoContainer}>
                 <Image source={weatherLogo} style={styles.weathearlogo} />
-                <TouchableHighlight onPress={() => alert('worked')}>
+                <TouchableHighlight
+                  onPress={() => {
+                    navigation.navigate('SearchScreen');
+                  }}>
                   <Image source={searchicon} style={styles.searchlogo} />
                 </TouchableHighlight>
               </View>
@@ -51,8 +53,8 @@ const HomeScreen = () => {
               <View style={styles.tempdetails}>
                 <Text style={styles.degreetext}>31</Text>
                 <View style={styles.tempicon}>
-                  <Text style={styles.ctext}>C</Text>
-                  <Text style={styles.ftext}>F</Text>
+                  <Text style={styles.ctext}>°C</Text>
+                  <Text style={styles.ftext}>°F</Text>
                 </View>
               </View>
               <Text style={styles.weathertext}>Mostly Sunny</Text>
@@ -66,14 +68,17 @@ const HomeScreen = () => {
                 </View>
               </View>
               <View style={styles.tempcontainer}>
-                <Image source={precipitationlogo} style={styles.humiditylogo} />
+                <Image
+                  source={precipitationlogo}
+                  style={styles.precipitationlogo}
+                />
                 <View>
                   <Text style={styles.bottomtext}>Precipitation</Text>
                   <Text style={styles.temptext}>0%</Text>
                 </View>
               </View>
               <View style={styles.tempcontainer}>
-                <Image source={humiditylogo} />
+                <Image source={humiditylogo} style={styles.humiditylogo} />
                 <View>
                   <Text style={styles.bottomtext}>Humidity</Text>
                   <Text style={styles.temptext}>47%</Text>
@@ -83,14 +88,14 @@ const HomeScreen = () => {
           </View>
         </SafeAreaView>
       </ScrollView>
-    </LinearGradient>
+    </ImageBackground>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  linearGradient: {
+  backgroundimage: {
     flex: 1,
   },
 
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 5,
+    marginTop: 10,
   },
 
   logoContainer: {
@@ -118,8 +123,8 @@ const styles = StyleSheet.create({
   },
 
   weathearlogo: {
-    height: 24,
-    width: 114,
+    height: 26,
+    width: 124,
     marginLeft: 20,
   },
 
@@ -198,8 +203,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
     padding: 5,
   },
 
@@ -219,29 +222,25 @@ const styles = StyleSheet.create({
   },
 
   ctext: {
-    celcius: {
-      height: 30,
-      color: '#E32843',
-      fontSize: 16,
-      lineheight: 19,
-      backgroundColor: '#FFFFFF',
-      padding: 5,
-      borderRadius: 2,
-      borderWidth: 1,
-      borderColor: '#FFFFFF',
-    },
+    height: 30,
+    color: '#E32843',
+    fontSize: 16,
+    lineheight: 19,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
   },
 
   ftext: {
-    celcius: {
-      height: 30,
-      color: '#FFFFFF',
-      lineheight: 19,
-      padding: 5,
-      borderRadius: 2,
-      borderWidth: 1,
-      borderColor: '#FFFFFF',
-    },
+    height: 30,
+    color: '#FFFFFF',
+    lineheight: 19,
+    padding: 5,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
   },
 
   weathertext: {
@@ -269,10 +268,12 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 
-  humiditylogo: {
+  precipitationlogo: {
     height: 25,
     width: 25,
   },
+
+  humiditylogo: {height: 20, width: 15},
 
   bottomtext: {
     height: 15,
