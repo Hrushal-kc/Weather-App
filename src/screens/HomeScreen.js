@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Image,
-  Pressable,
   TouchableHighlight,
   ScrollView,
 } from 'react-native';
@@ -90,7 +89,7 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
   },
@@ -220,18 +219,29 @@ styles = StyleSheet.create({
   },
 
   ctext: {
-    height: 19,
-    lineHeight: 19,
-    fontSize: 16,
-    color: '#E32843',
-    alignSelf: 'auto',
+    celcius: {
+      height: 30,
+      color: '#E32843',
+      fontSize: 16,
+      lineheight: 19,
+      backgroundColor: '#FFFFFF',
+      padding: 5,
+      borderRadius: 2,
+      borderWidth: 1,
+      borderColor: '#FFFFFF',
+    },
   },
 
   ftext: {
-    height: 19,
-    lineHeight: 19,
-    fontSize: 16,
-    color: '#FFFFFF',
+    celcius: {
+      height: 30,
+      color: '#FFFFFF',
+      lineheight: 19,
+      padding: 5,
+      borderRadius: 2,
+      borderWidth: 1,
+      borderColor: '#FFFFFF',
+    },
   },
 
   weathertext: {
