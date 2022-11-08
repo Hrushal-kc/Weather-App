@@ -59,32 +59,34 @@ const HomeScreen = ({navigation}) => {
               </View>
               <Text style={styles.weathertext}>Mostly Sunny</Text>
             </View>
-            <View style={styles.bottominfo}>
-              <View style={styles.tempcontainer}>
-                <Image source={temperatureicon} />
-                <View>
-                  <Text style={styles.bottomtext}>Min - Max</Text>
-                  <Text style={styles.temptext}>22 - 34</Text>
+            <ScrollView horizontal>
+              <View style={styles.bottominfo}>
+                <View style={styles.tempcontainer}>
+                  <Image source={temperatureicon} />
+                  <View>
+                    <Text style={styles.bottomtext}>Min - Max</Text>
+                    <Text style={styles.temptext}>22 - 34</Text>
+                  </View>
+                </View>
+                <View style={styles.tempcontainer}>
+                  <Image
+                    source={precipitationlogo}
+                    style={styles.precipitationlogo}
+                  />
+                  <View>
+                    <Text style={styles.bottomtext}>Precipitation</Text>
+                    <Text style={styles.temptext}>0%</Text>
+                  </View>
+                </View>
+                <View style={styles.tempcontainer}>
+                  <Image source={humiditylogo} style={styles.humiditylogo} />
+                  <View>
+                    <Text style={styles.bottomtext}>Humidity</Text>
+                    <Text style={styles.temptext}>47%</Text>
+                  </View>
                 </View>
               </View>
-              <View style={styles.tempcontainer}>
-                <Image
-                  source={precipitationlogo}
-                  style={styles.precipitationlogo}
-                />
-                <View>
-                  <Text style={styles.bottomtext}>Precipitation</Text>
-                  <Text style={styles.temptext}>0%</Text>
-                </View>
-              </View>
-              <View style={styles.tempcontainer}>
-                <Image source={humiditylogo} style={styles.humiditylogo} />
-                <View>
-                  <Text style={styles.bottomtext}>Humidity</Text>
-                  <Text style={styles.temptext}>47%</Text>
-                </View>
-              </View>
-            </View>
+            </ScrollView>
           </View>
         </SafeAreaView>
       </ScrollView>
@@ -258,13 +260,13 @@ const styles = StyleSheet.create({
     borderTopColor: '#FFFFFF',
     justifyContent: 'space-around',
     alignItems: 'center',
+    width: 400,
   },
 
   tempcontainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '30%',
     marginTop: 30,
   },
 

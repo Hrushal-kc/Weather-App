@@ -15,7 +15,7 @@ import ListView from '../components/ListView';
 
 const RecentSearch = ({navigation}) => {
   const handleRemoveFavourite = () => {
-    Alert.alert('', 'Are you sure want to remove all the favourites?', [
+    Alert.alert('', 'Are you sure want to remove all the searches?', [
       {
         text: 'No',
         onPress: () => console.log('Cancel Pressed'),
