@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,16 @@ import {getWeather} from '../redux/weatherData';
 import moment from 'moment';
 
 const HomeScreen = ({navigation}) => {
+  const [toggle, setToggle] = useState(false);
+
+  const celciusToggle = () => {
+    setToggle(false);
+  };
+
+  const fahrenheitToggle = () => {
+    setToggle(true);
+  };
+
   const dispatch = useDispatch();
   const weatherList = useSelector(state => state.weather.list);
   useEffect(() => {
@@ -54,7 +64,7 @@ const HomeScreen = ({navigation}) => {
                 {moment().format('llll').toUpperCase()}
               </Text>
               <Text style={styles.locationtext}>
-                {weatherList?.location.name}, {weatherList?.location.region}
+                {weatherList?.location?.name}, {weatherList?.location?.region}
               </Text>
               <View style={styles.favouriteContainer}>
                 <TouchableHighlight>
@@ -64,18 +74,54 @@ const HomeScreen = ({navigation}) => {
               </View>
             </View>
             <View style={styles.infobox}>
-              <Image source={drawericon} style={styles.sunicon} />
-              <View style={styles.tempdetails}>
-                <Text style={styles.degreetext}>
-                  {weatherList?.current.temp_c}
-                </Text>
-                <View style={styles.tempicon}>
-                  <Text style={styles.ctext}>°C</Text>
-                  <Text style={styles.ftext}>°F</Text>
+              <Image
+                source={weatherList?.current?.condition?.icon}
+                style={styles.sunicon}
+              />
+              {toggle ? (
+                <View style={styles.tempdetails}>
+                  <Text style={styles.degreetext}>
+                    {weatherList?.current?.temp_f}
+                  </Text>
+                  <View style={styles.tempicon}>
+                    <TouchableHighlight onPress={celciusToggle}>
+                      <Text style={styles.ctext}>°C</Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={fahrenheitToggle}>
+                      <Text
+                        style={[
+                          styles.ftext,
+                          {backgroundColor: '#FFFFFF', color: '#E32843'},
+                        ]}>
+                        °F
+                      </Text>
+                    </TouchableHighlight>
+                  </View>
                 </View>
-              </View>
+              ) : (
+                <View style={styles.tempdetails}>
+                  <Text style={styles.degreetext}>
+                    {weatherList?.current?.temp_c}
+                  </Text>
+                  <View style={styles.tempicon}>
+                    <TouchableHighlight onPress={celciusToggle}>
+                      <Text
+                        style={[
+                          styles.ctext,
+                          {backgroundColor: '#FFFFFF', color: '#E32843'},
+                        ]}>
+                        °C
+                      </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={fahrenheitToggle}>
+                      <Text style={styles.ftext}>°F</Text>
+                    </TouchableHighlight>
+                  </View>
+                </View>
+              )}
+
               <Text style={styles.weathertext}>
-                Mostly {weatherList?.current.condition.text}
+                Mostly {weatherList?.current?.condition?.text}
               </Text>
             </View>
             <ScrollView horizontal>
@@ -85,8 +131,8 @@ const HomeScreen = ({navigation}) => {
                   <View>
                     <Text style={styles.bottomtext}> Min - Max</Text>
                     <Text style={styles.temptext}>
-                      {parseInt(weatherList?.current.temp_c - 2)}°-
-                      {parseInt(weatherList?.current.temp_c + 2)}°
+                      {parseInt(weatherList?.current?.temp_c - 2)}°-
+                      {parseInt(weatherList?.current?.temp_c + 2)}°
                     </Text>
                   </View>
                 </View>
@@ -98,7 +144,7 @@ const HomeScreen = ({navigation}) => {
                   <View>
                     <Text style={styles.bottomtext}>Precipitation</Text>
                     <Text style={styles.temptext}>
-                      {weatherList?.current.precip_mm}%
+                      {weatherList?.current?.precip_mm}%
                     </Text>
                   </View>
                 </View>
@@ -107,7 +153,7 @@ const HomeScreen = ({navigation}) => {
                   <View>
                     <Text style={styles.bottomtext}>Humidity</Text>
                     <Text style={styles.temptext}>
-                      {weatherList?.current.humidity}%
+                      {weatherList?.current?.humidity}%
                     </Text>
                   </View>
                 </View>
@@ -225,6 +271,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10,
   },
 
   tempicon: {
@@ -238,6 +285,7 @@ const styles = StyleSheet.create({
     height: 67,
     width: 64,
     marginBottom: 20,
+    borderWidth: 2,
   },
 
   degreetext: {
@@ -251,10 +299,9 @@ const styles = StyleSheet.create({
 
   ctext: {
     height: 30,
-    color: '#E32843',
+    color: '#FFFFFF',
     fontSize: 16,
     lineheight: 19,
-    backgroundColor: '#FFFFFF',
     padding: 5,
     borderRadius: 2,
     borderWidth: 1,
@@ -264,6 +311,7 @@ const styles = StyleSheet.create({
   ftext: {
     height: 30,
     color: '#FFFFFF',
+    fontSize: 17,
     lineheight: 19,
     padding: 5,
     borderRadius: 2,
@@ -315,7 +363,7 @@ const styles = StyleSheet.create({
     height: 21,
     lineHeight: 21,
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '500',
     paddingHorizontal: 14,
   },
