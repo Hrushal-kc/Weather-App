@@ -1,23 +1,21 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import humiditylogo from '../../assets/icon_humidity_info.png';
-import favoritelogo from '../../assets/icon_favourite_active.png';
 
-const ListView = () => {
+const ListView = ({place, image, temperature, condition, favoriteimage}) => {
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
-        <Text style={styles.mainText}>Udupi, Karnataka</Text>
+        <Text style={styles.mainText}>{place}</Text>
         <View style={styles.logocontainer}>
-          <Image source={humiditylogo} />
+          <Image source={image} />
           <View style={styles.textContainer}>
-            <Text style={styles.temptext}>31</Text>
+            <Text style={styles.temptext}>{temperature}</Text>
             <Text style={styles.ctext}>°C</Text>
           </View>
-          <Text style={styles.humidityText}>Mostly Sunny</Text>
+          <Text style={styles.humidityText}>{condition}</Text>
         </View>
       </View>
-      <Image source={favoritelogo} />
+      <Image source={favoriteimage} />
     </View>
   );
 };
@@ -33,6 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 3,
   },
 
   logocontainer: {

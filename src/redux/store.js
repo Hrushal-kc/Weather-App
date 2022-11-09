@@ -11,8 +11,8 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-  recent: recent1,
-  favourite: favourite1,
+  recentSearch: recent1,
+  favouriteSearch: favourite1,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

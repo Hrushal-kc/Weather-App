@@ -44,7 +44,9 @@ const HomeScreen = ({navigation}) => {
               <Text style={styles.datetime}>Wed, 28 Nov 2018 11:35 AM</Text>
               <Text style={styles.locationtext}>Udupi, Karnataka</Text>
               <View style={styles.favouriteContainer}>
-                <Image source={favouriteicon} style={styles.favouriteicon} />
+                <TouchableHighlight>
+                  <Image source={favouriteicon} style={styles.favouriteicon} />
+                </TouchableHighlight>
                 <Text style={styles.favouritetext}>Add to favourite</Text>
               </View>
             </View>
