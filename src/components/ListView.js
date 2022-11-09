@@ -1,7 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
 
-const ListView = ({place, image, temperature, condition, favoriteimage}) => {
+const ListView = ({
+  place,
+  image,
+  temperature,
+  condition,
+  favoriteimage,
+  favOnpress,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
@@ -15,7 +22,9 @@ const ListView = ({place, image, temperature, condition, favoriteimage}) => {
           <Text style={styles.humidityText}>{condition}</Text>
         </View>
       </View>
-      <Image source={favoriteimage} />
+      <TouchableHighlight onPress={favOnpress}>
+        <Image source={favoriteimage} />
+      </TouchableHighlight>
     </View>
   );
 };

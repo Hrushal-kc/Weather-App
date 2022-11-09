@@ -2,7 +2,13 @@ import React from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 import Icon1 from 'react-native-vector-icons/AntDesign';
 
-const Navbar = ({headText, arrowonPress, searchIcon, searchonPress}) => {
+const Navbar = ({
+  headText,
+  arrowonPress,
+  searchIcon,
+  searchonPress,
+  navigation,
+}) => {
   return (
     <SafeAreaView>
       <View style={styles.navbar}>

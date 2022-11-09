@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import store from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
+import FavouriteScreen from './src/screens/FavouriteScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,11 @@ const App = () => {
             <Stack.Screen
               name="Screens"
               component={Screens}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Favourite"
+              component={FavouriteScreen}
               options={{headerShown: false}}
             />
             <Stack.Screen

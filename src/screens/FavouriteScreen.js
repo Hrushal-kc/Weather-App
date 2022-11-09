@@ -48,7 +48,7 @@ const FavouriteScreen = ({navigation}) => {
           <Navbar
             headText={'Favourite'}
             arrowonPress={() => {
-              navigation.goBack();
+              navigation.navigate('Home');
             }}
             searchIcon={'search1'}
           />

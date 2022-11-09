@@ -2,8 +2,8 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen';
-import FavouriteScreen from '../screens/FavouriteScreen';
-import RecentSearch from '../screens/RecentSearch';
+import CombineFavouriteScreen from './CombineFavouriteScreen';
+import CombineRecentScreen from './CombineRecentScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,12 +17,12 @@ const Screens = () => {
       />
       <Drawer.Screen
         name="Favourite"
-        component={FavouriteScreen}
+        component={CombineFavouriteScreen}
         options={{headerShown: false}}
       />
       <Drawer.Screen
         name="RecentSearch"
-        component={RecentSearch}
+        component={CombineRecentScreen}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

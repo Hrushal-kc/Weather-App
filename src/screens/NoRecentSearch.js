@@ -12,15 +12,15 @@ import Navbar from '../components/Navbar';
 import backgroundimage from '../../assets/background_android.png';
 import nothingLogo from '../../assets/icon_nothing.png';
 
-const NoRecentSearch = () => {
+const NoRecentSearch = ({navigation}) => {
   return (
     <ImageBackground source={backgroundimage} style={styles.image}>
       <SafeAreaView style={{flex: 1}}>
         <ScrollView style={{flex: 1}}>
           <Navbar
             headText={'Recent Search'}
-            onPress={() => {
-              navigation.goBack();
+            arrowonPress={() => {
+              navigation.navigate('Home');
             }}
             searchIcon={'search1'}
           />

@@ -16,9 +16,16 @@ import ListView from '../components/ListView';
 import {useDispatch, useSelector} from 'react-redux';
 import favImage from '../../assets/icon_favourite_active.png';
 import nofavImage from '../../assets/icon_favourite.png';
+import {updateStatus} from '../redux/recent';
 
 const RecentSearch = ({navigation}) => {
   const placeList = useSelector(state => state.recentSearch.value);
+  const dispatch = useDispatch();
+
+  const handlefavValue = item => {
+    dispatch(updateStatus({id: item.id, favValue: !item.favValue}));
+  };
+
   const renderItems = ({item}) => {
     return (
       <ListView
@@ -26,6 +33,7 @@ const RecentSearch = ({navigation}) => {
         image={item.image}
         temperature={item.temperature}
         condition={item.condition}
+        favOnpress={() => handlefavValue(item)}
         favoriteimage={item.favValue ? favImage : nofavImage}
       />
     );
@@ -47,7 +55,7 @@ const RecentSearch = ({navigation}) => {
         <Navbar
           headText={'Recent Search'}
           arrowonPress={() => {
-            navigation.goBack();
+            navigation.navigate('Home');
           }}
           searchIcon={'search1'}
         />

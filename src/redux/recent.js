@@ -23,7 +23,16 @@ const Data = [
 export const Recent = createSlice({
   name: 'recentSearch',
   initialState: {value: Data},
-  reducers: {},
+  reducers: {
+    updateStatus: (state, action) => {
+      state.value.map(task => {
+        if (task.id === action.payload.id) {
+          task.favValue = action.payload.favValue;
+        }
+      });
+    },
+  },
 });
 
 export default Recent.reducer;
+export const {updateStatus} = Recent.actions;

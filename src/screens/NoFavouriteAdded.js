@@ -12,7 +12,7 @@ import Navbar from '../components/Navbar';
 import backgroundimage from '../../assets/background_android.png';
 import nothingLogo from '../../assets/icon_nothing.png';
 
-const NoFavourite = () => {
+const NoFavourite = ({navigation}) => {
   return (
     <ImageBackground source={backgroundimage} style={styles.image}>
       <SafeAreaView style={{flex: 1}}>
@@ -20,7 +20,7 @@ const NoFavourite = () => {
           <Navbar
             headText={'Favourite'}
             arrowonPress={() => {
-              navigation.goBack();
+              navigation.navigate('Home');
             }}
             searchIcon={'search1'}
           />
