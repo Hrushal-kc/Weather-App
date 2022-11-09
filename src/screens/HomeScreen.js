@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -17,8 +17,17 @@ import temperatureicon from '../../assets/icon_temperature_info.png';
 import precipitationlogo from '../../assets/icon_precipitation_info.png';
 import humiditylogo from '../../assets/icon_humidity_info.png';
 import backgroundimage from '../../assets/background_android.png';
+import {useDispatch, useSelector} from 'react-redux';
+import {getWeather} from '../redux/weatherData';
+import moment from 'moment';
 
 const HomeScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+  const weatherList = useSelector(state => state.weather.list);
+  useEffect(() => {
+    dispatch(getWeather());
+  }, [dispatch]);
+
   return (
     <ImageBackground source={backgroundimage} style={styles.backgroundimage}>
       <ScrollView>
@@ -41,8 +50,12 @@ const HomeScreen = ({navigation}) => {
               </View>
             </View>
             <View style={styles.detailsContainer}>
-              <Text style={styles.datetime}>Wed, 28 Nov 2018 11:35 AM</Text>
-              <Text style={styles.locationtext}>Udupi, Karnataka</Text>
+              <Text style={styles.datetime}>
+                {moment().format('llll').toUpperCase()}
+              </Text>
+              <Text style={styles.locationtext}>
+                {weatherList?.location.name}, {weatherList?.location.region}
+              </Text>
               <View style={styles.favouriteContainer}>
                 <TouchableHighlight>
                   <Image source={favouriteicon} style={styles.favouriteicon} />
@@ -53,21 +66,28 @@ const HomeScreen = ({navigation}) => {
             <View style={styles.infobox}>
               <Image source={drawericon} style={styles.sunicon} />
               <View style={styles.tempdetails}>
-                <Text style={styles.degreetext}>31</Text>
+                <Text style={styles.degreetext}>
+                  {weatherList?.current.temp_c}
+                </Text>
                 <View style={styles.tempicon}>
                   <Text style={styles.ctext}>°C</Text>
                   <Text style={styles.ftext}>°F</Text>
                 </View>
               </View>
-              <Text style={styles.weathertext}>Mostly Sunny</Text>
+              <Text style={styles.weathertext}>
+                Mostly {weatherList?.current.condition.text}
+              </Text>
             </View>
             <ScrollView horizontal>
               <View style={styles.bottominfo}>
                 <View style={styles.tempcontainer}>
                   <Image source={temperatureicon} />
                   <View>
-                    <Text style={styles.bottomtext}>Min - Max</Text>
-                    <Text style={styles.temptext}>22 - 34</Text>
+                    <Text style={styles.bottomtext}> Min - Max</Text>
+                    <Text style={styles.temptext}>
+                      {parseInt(weatherList?.current.temp_c - 2)}°-
+                      {parseInt(weatherList?.current.temp_c + 2)}°
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.tempcontainer}>
@@ -77,14 +97,18 @@ const HomeScreen = ({navigation}) => {
                   />
                   <View>
                     <Text style={styles.bottomtext}>Precipitation</Text>
-                    <Text style={styles.temptext}>0%</Text>
+                    <Text style={styles.temptext}>
+                      {weatherList?.current.precip_mm}%
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.tempcontainer}>
                   <Image source={humiditylogo} style={styles.humiditylogo} />
                   <View>
                     <Text style={styles.bottomtext}>Humidity</Text>
-                    <Text style={styles.temptext}>47%</Text>
+                    <Text style={styles.temptext}>
+                      {weatherList?.current.humidity}%
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -219,9 +243,9 @@ const styles = StyleSheet.create({
   degreetext: {
     height: 61,
     color: '#FFFFFF',
-    fontSize: 52,
+    fontSize: 50,
     fontWeight: '500',
-    lineHeight: 61,
+    lineHeight: 70,
     marginBottom: 10,
   },
 
@@ -284,13 +308,15 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     color: '#FFFFFF',
     fontSize: 13,
+    paddingHorizontal: 13,
   },
 
   temptext: {
     height: 21,
     lineHeight: 21,
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '500',
+    paddingHorizontal: 14,
   },
 });

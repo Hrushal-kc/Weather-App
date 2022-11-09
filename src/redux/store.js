@@ -1,8 +1,9 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import recent1 from './recent';
-import favourite1 from './favourite';
+import recent from './recent';
+import favourite from './favourite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistReducer} from 'redux-persist';
+import weatherData from './weatherData';
 
 const persistConfig = {
   key: 'root',
@@ -11,8 +12,9 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-  recentSearch: recent1,
-  favouriteSearch: favourite1,
+  recentSearch: recent,
+  favouriteSearch: favourite,
+  weather: weatherData,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

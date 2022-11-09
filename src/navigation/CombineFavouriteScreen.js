@@ -8,7 +8,7 @@ const CombineFavouriteScreen = ({navigation}) => {
   const placeList = useSelector(state => state.favouriteSearch.value);
   return (
     <View style={styles.container}>
-      {!placeList.length == 0 ? (
+      {placeList.length == 0 ? (
         <NoFavourite navigation={navigation} />
       ) : (
         <FavouriteScreen navigation={navigation} />
