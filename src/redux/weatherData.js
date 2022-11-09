@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+const BaseURL = 'https://weatherapi-com.p.rapidapi.com';
 
 const options = {
   method: 'GET',
@@ -8,11 +9,9 @@ const options = {
   },
 };
 
-export const getWeather = createAsyncThunk('redux/getWeather', async () => {
-  return fetch(
-    'https://weatherapi-com.p.rapidapi.com/current.json?q=Mandya',
-    options,
-  )
+export const getWeather = createAsyncThunk('redux/getWeather', async string => {
+  console.log(string);
+  return fetch(`${BaseURL}/current.json?q=${string}`, options)
     .then(response => response.json())
     .catch(err => console.error(err));
 });

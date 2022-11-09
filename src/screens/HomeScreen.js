@@ -35,8 +35,8 @@ const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const weatherList = useSelector(state => state.weather.list);
   useEffect(() => {
-    dispatch(getWeather());
-  }, [dispatch]);
+    dispatch(getWeather('Udupi'));
+  }, []);
 
   return (
     <ImageBackground source={backgroundimage} style={styles.backgroundimage}>
@@ -75,7 +75,7 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View style={styles.infobox}>
               <Image
-                source={weatherList?.current?.condition?.icon}
+                source={{uri: `https:${weatherList.current.condition.icon}`}}
                 style={styles.sunicon}
               />
               {toggle ? (

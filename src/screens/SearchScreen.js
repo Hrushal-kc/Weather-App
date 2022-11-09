@@ -1,18 +1,53 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, SafeAreaView, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  SafeAreaView,
+  Text,
+  TouchableHighlight,
+} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 import Icon1 from 'react-native-vector-icons/AntDesign';
+import {useDispatch} from 'react-redux';
+import {getWeather} from '../redux/weatherData';
+import getSearch from '../services/SearchRecomendation';
 
 const SearchScreen = ({navigation}) => {
-  const [textCount, setTextCount] = useState('');
+  const [inputText, setInputText] = useState('');
+  const [searchData, setSearchData] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleClearText = () => {
-    setTextCount('');
+    setInputText('');
+  };
+
+  const handleInputText = async string => {
+    setInputText(string);
+    const Data = await getSearch(inputText);
+    setSearchData(Data);
+  };
+
+  const handleTextPress = async string => {
+    dispatch(getWeather(string));
+    navigation.goBack();
+  };
+
+  const renderItems = ({item}) => {
+    return (
+      <TouchableHighlight onPress={() => handleTextPress(item.name)}>
+        <View style={styles.renderContainer}>
+          <Text>{item.name}</Text>
+        </View>
+      </TouchableHighlight>
+    );
   };
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        {textCount == '' ? (
+        {inputText == '' ? (
           <View style={styles.navbar}>
             <Icon1
               name="arrowleft"
@@ -24,8 +59,8 @@ const SearchScreen = ({navigation}) => {
             <TextInput
               placeholder="Search for City"
               style={styles.inputText}
-              onChangeText={setTextCount}
-              value={textCount}
+              onChangeText={handleInputText}
+              value={inputText}
             />
           </View>
         ) : (
@@ -40,7 +75,7 @@ const SearchScreen = ({navigation}) => {
             <TextInput
               placeholder="Search for City"
               style={styles.inputText}
-              onChangeText={setTextCount}
+              onChangeText={handleInputText}
             />
             <Icon1
               name="close"
@@ -49,6 +84,12 @@ const SearchScreen = ({navigation}) => {
               onPress={handleClearText}></Icon1>
           </View>
         )}
+        <View>
+          <FlatList
+            data={searchData}
+            renderItem={renderItems}
+            keyExtractor={item => item.id}></FlatList>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -65,7 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 20,
     width: '100%',
-    borderBottomColor: 'grey',
+    borderBottomColor: '#d3d3d3 ',
     borderBottomWidth: 1,
   },
 
@@ -73,5 +114,12 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     width: '60%',
     marginRight: 60,
+  },
+
+  renderContainer: {
+    borderBottomColor: '#d3d3d3 ',
+    borderBottomWidth: 1,
+    flex: 1,
+    padding: 20,
   },
 });
