@@ -1,37 +1,20 @@
 import {createSlice} from '@reduxjs/toolkit';
 import humiditylogo from '../../assets/icon_humidity_info.png';
 
-const Data = [
-  {
-    id: 1,
-    place: 'Udupi , Karnataka',
-    image: humiditylogo,
-    temperature: 31,
-    condition: 'Mostly Sunny',
-    favValue: true,
-  },
-  {
-    id: 2,
-    place: 'Mysore , Karnataka',
-    image: humiditylogo,
-    temperature: 31,
-    condition: 'Mostly Sunny',
-    favValue: true,
-  },
-  {
-    id: 3,
-    place: 'Banglore , Karnataka',
-    image: humiditylogo,
-    temperature: 27,
-    condition: 'Mostly Sunny',
-    favValue: true,
-  },
-];
+const Data = [];
 
 export const Favourite = createSlice({
   name: 'favouriteSearch',
   initialState: {value: Data},
-  reducers: {},
+  reducers: {
+    addFavPlace: (state, action) => {
+      state.value.push(action.payload);
+    },
+    deleteFavplace: (state, action) => {
+      state.value = state.value.filter(place => place.id !== action.payload.id);
+    },
+  },
 });
 
 export default Favourite.reducer;
+export const {addFavPlace, deleteFavplace} = Favourite.actions;

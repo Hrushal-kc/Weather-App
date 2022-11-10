@@ -40,12 +40,13 @@ const SearchScreen = ({navigation}) => {
         <View style={styles.renderContainer}>
           <Text>{item.name}</Text>
         </View>
+        <View style={styles.bottomLine}></View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <View style={styles.container}>
         {inputText == '' ? (
           <View style={styles.navbar}>
@@ -84,6 +85,7 @@ const SearchScreen = ({navigation}) => {
               onPress={handleClearText}></Icon1>
           </View>
         )}
+        <View style={styles.bottomLine}></View>
         <View>
           <FlatList
             data={searchData}
@@ -106,8 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 20,
     width: '100%',
-    borderBottomColor: '#d3d3d3 ',
-    borderBottomWidth: 1,
   },
 
   inputText: {
@@ -117,9 +117,13 @@ const styles = StyleSheet.create({
   },
 
   renderContainer: {
-    borderBottomColor: '#d3d3d3 ',
-    borderBottomWidth: 1,
     flex: 1,
     padding: 20,
+  },
+
+  bottomLine: {
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1,
+    opacity: 0.1,
   },
 });

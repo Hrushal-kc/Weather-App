@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 const ListView = ({
   place,
+  region,
   image,
   temperature,
   condition,
@@ -12,9 +13,11 @@ const ListView = ({
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
-        <Text style={styles.mainText}>{place}</Text>
+        <Text style={styles.mainText}>
+          {place} , {region}
+        </Text>
         <View style={styles.logocontainer}>
-          <Image source={image} />
+          <Image source={{uri: image}} style={styles.image} />
           <View style={styles.textContainer}>
             <Text style={styles.temptext}>{temperature}</Text>
             <Text style={styles.ctext}>°C</Text>
@@ -46,10 +49,9 @@ const styles = StyleSheet.create({
   logocontainer: {
     flexDirection: 'row',
     marginTop: 10,
-    padding: 5,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '70%',
+    justifyContent: 'flex-start',
+    width: '90%',
   },
 
   mainText: {
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 15,
     color: '#FFFFFF',
+    marginRight: 10,
   },
 
   humidityText: {
@@ -86,5 +89,10 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     width: '80%',
+  },
+
+  image: {
+    height: 30,
+    width: 30,
   },
 });

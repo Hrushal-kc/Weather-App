@@ -22,6 +22,7 @@ const FavouriteScreen = ({navigation}) => {
     return (
       <ListView
         place={item.place}
+        region={item.region}
         image={item.image}
         temperature={item.temperature}
         condition={item.condition}

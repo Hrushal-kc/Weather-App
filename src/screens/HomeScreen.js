@@ -12,7 +12,7 @@ import {
 import weatherLogo from '../../assets/weatherLogo.png';
 import drawericon from '../../assets/icon_menu_white.png';
 import searchicon from '../../assets/icon_search_white.png';
-import favouriteicon from '../../assets/icon_favourite.png';
+import nofavouriteicon from '../../assets/icon_favourite.png';
 import temperatureicon from '../../assets/icon_temperature_info.png';
 import precipitationlogo from '../../assets/icon_precipitation_info.png';
 import humiditylogo from '../../assets/icon_humidity_info.png';
@@ -20,9 +20,12 @@ import backgroundimage from '../../assets/background_android.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {getWeather} from '../redux/weatherData';
 import moment from 'moment';
+import favImage from '../../assets/icon_favourite_active.png';
+import {addFavPlace, deleteFavplace} from '../redux/favourite';
 
 const HomeScreen = ({navigation}) => {
   const [toggle, setToggle] = useState(false);
+  const [favPlace, setFavPlace] = useState(false);
 
   const celciusToggle = () => {
     setToggle(false);
@@ -34,9 +37,31 @@ const HomeScreen = ({navigation}) => {
 
   const dispatch = useDispatch();
   const weatherList = useSelector(state => state.weather.list);
+
   useEffect(() => {
     dispatch(getWeather('Udupi'));
   }, []);
+
+  const handleFavPlace = () => {
+    console.log('favplace');
+    setFavPlace(!favPlace);
+    const cityDetails = {
+      id: weatherList?.location?.name,
+      place: weatherList?.location?.name,
+      region: weatherList?.location?.region,
+      image: `https:${weatherList?.current?.condition.icon}`,
+      temperature: weatherList?.current?.temp_c,
+      condition: weatherList?.current?.condition?.text,
+      favValue: true,
+    };
+    dispatch(addFavPlace(cityDetails));
+  };
+
+  const handleDeleteFavPlace = () => {
+    console.log('nofavplace');
+    setFavPlace(!favPlace);
+    dispatch(deleteFavplace({id: weatherList?.location?.name}));
+  };
 
   return (
     <ImageBackground source={backgroundimage} style={styles.backgroundimage}>
@@ -67,15 +92,25 @@ const HomeScreen = ({navigation}) => {
                 {weatherList?.location?.name}, {weatherList?.location?.region}
               </Text>
               <View style={styles.favouriteContainer}>
-                <TouchableOpacity>
-                  <Image source={favouriteicon} style={styles.favouriteicon} />
-                </TouchableOpacity>
+                {favPlace ? (
+                  <TouchableOpacity onPress={handleDeleteFavPlace}>
+                    <Image source={favImage} style={styles.favouriteicon} />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={handleFavPlace}>
+                    <Image
+                      source={nofavouriteicon}
+                      style={styles.favouriteicon}
+                    />
+                  </TouchableOpacity>
+                )}
+
                 <Text style={styles.favouritetext}>Add to favourite</Text>
               </View>
             </View>
             <View style={styles.infobox}>
               <Image
-                source={{uri: `https:${weatherList.current.condition.icon}`}}
+                source={{uri: `https:${weatherList?.current?.condition?.icon}`}}
                 style={styles.sunicon}
               />
               {toggle ? (
@@ -121,7 +156,7 @@ const HomeScreen = ({navigation}) => {
               )}
 
               <Text style={styles.weathertext}>
-                Mostly {weatherList?.current?.condition?.text}
+                {weatherList?.current?.condition?.text}
               </Text>
             </View>
             <ScrollView horizontal>
@@ -285,7 +320,6 @@ const styles = StyleSheet.create({
     height: 67,
     width: 64,
     marginBottom: 20,
-    borderWidth: 2,
   },
 
   degreetext: {
