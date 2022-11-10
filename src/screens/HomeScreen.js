@@ -5,9 +5,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Image,
-  TouchableHighlight,
   ScrollView,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import weatherLogo from '../../assets/weatherLogo.png';
 import drawericon from '../../assets/icon_menu_white.png';
@@ -45,18 +45,18 @@ const HomeScreen = ({navigation}) => {
           <View>
             <View style={styles.navbar}>
               <View>
-                <TouchableHighlight onPress={() => navigation.openDrawer()}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                   <Image source={drawericon} style={styles.drawerlogo} />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <View style={styles.logoContainer}>
                 <Image source={weatherLogo} style={styles.weathearlogo} />
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('SearchScreen');
                   }}>
                   <Image source={searchicon} style={styles.searchlogo} />
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.detailsContainer}>
@@ -67,9 +67,9 @@ const HomeScreen = ({navigation}) => {
                 {weatherList?.location?.name}, {weatherList?.location?.region}
               </Text>
               <View style={styles.favouriteContainer}>
-                <TouchableHighlight>
+                <TouchableOpacity>
                   <Image source={favouriteicon} style={styles.favouriteicon} />
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Text style={styles.favouritetext}>Add to favourite</Text>
               </View>
             </View>
@@ -84,10 +84,10 @@ const HomeScreen = ({navigation}) => {
                     {weatherList?.current?.temp_f}
                   </Text>
                   <View style={styles.tempicon}>
-                    <TouchableHighlight onPress={celciusToggle}>
+                    <TouchableOpacity onPress={celciusToggle}>
                       <Text style={styles.ctext}>°C</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={fahrenheitToggle}>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={fahrenheitToggle}>
                       <Text
                         style={[
                           styles.ftext,
@@ -95,7 +95,7 @@ const HomeScreen = ({navigation}) => {
                         ]}>
                         °F
                       </Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                   </View>
                 </View>
               ) : (
@@ -104,7 +104,7 @@ const HomeScreen = ({navigation}) => {
                     {weatherList?.current?.temp_c}
                   </Text>
                   <View style={styles.tempicon}>
-                    <TouchableHighlight onPress={celciusToggle}>
+                    <TouchableOpacity onPress={celciusToggle}>
                       <Text
                         style={[
                           styles.ctext,
@@ -112,10 +112,10 @@ const HomeScreen = ({navigation}) => {
                         ]}>
                         °C
                       </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={fahrenheitToggle}>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={fahrenheitToggle}>
                       <Text style={styles.ftext}>°F</Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                   </View>
                 </View>
               )}

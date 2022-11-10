@@ -7,11 +7,11 @@ import {
   Text,
   Alert,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import Navbar from '../components/Navbar';
 import backgroundimage from '../../assets/background_android.png';
 import ListView from '../components/ListView';
-import {TouchableHighlight} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import favImage from '../../assets/icon_favourite_active.png';
 
@@ -55,9 +55,9 @@ const FavouriteScreen = ({navigation}) => {
           <View style={styles.container}>
             <View style={styles.textcontainer}>
               <Text style={styles.cititext}>6 City added as favourite</Text>
-              <TouchableHighlight onPress={handleRemoveFavourite}>
+              <TouchableOpacity onPress={handleRemoveFavourite}>
                 <Text style={styles.removetext}>Remove All</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
             <View style={styles.listContainer}>
               <FlatList

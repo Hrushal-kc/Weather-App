@@ -5,7 +5,7 @@ import {
   TextInput,
   SafeAreaView,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import Icon1 from 'react-native-vector-icons/AntDesign';
@@ -36,11 +36,11 @@ const SearchScreen = ({navigation}) => {
 
   const renderItems = ({item}) => {
     return (
-      <TouchableHighlight onPress={() => handleTextPress(item.name)}>
+      <TouchableOpacity onPress={() => handleTextPress(item.name)}>
         <View style={styles.renderContainer}>
           <Text>{item.name}</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   };
 

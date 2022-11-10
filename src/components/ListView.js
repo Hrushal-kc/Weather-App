@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 const ListView = ({
   place,
@@ -22,9 +22,9 @@ const ListView = ({
           <Text style={styles.humidityText}>{condition}</Text>
         </View>
       </View>
-      <TouchableHighlight onPress={favOnpress}>
+      <TouchableOpacity onPress={favOnpress}>
         <Image source={favoriteimage} />
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -3,10 +3,9 @@ import {
   ImageBackground,
   SafeAreaView,
   StyleSheet,
-  ScrollView,
+  TouchableOpacity,
   View,
   Text,
-  TouchableHighlight,
   Alert,
   FlatList,
 } from 'react-native';
@@ -62,9 +61,9 @@ const RecentSearch = ({navigation}) => {
         <View style={styles.container}>
           <View style={styles.textcontainer}>
             <Text style={styles.cititext}>You recently searched for</Text>
-            <TouchableHighlight onPress={handleRemoveFavourite}>
+            <TouchableOpacity onPress={handleRemoveFavourite}>
               <Text style={styles.removetext}>Clear All</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
           <View style={styles.listContainer}>
             <FlatList
