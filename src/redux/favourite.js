@@ -13,8 +13,13 @@ export const Favourite = createSlice({
     deleteFavplace: (state, action) => {
       state.value = state.value.filter(place => place.id !== action.payload.id);
     },
+
+    deleteAllFavplace: (state, action) => {
+      state.value = [];
+    },
   },
 });
 
 export default Favourite.reducer;
-export const {addFavPlace, deleteFavplace} = Favourite.actions;
+export const {addFavPlace, deleteFavplace, deleteAllFavplace} =
+  Favourite.actions;

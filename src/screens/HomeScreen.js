@@ -38,12 +38,17 @@ const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const weatherList = useSelector(state => state.weather.list);
 
+  const favlist = useSelector(state => state.favouriteSearch.value);
+
+  const favValue = {...favlist[0]};
+  console.log(favValue.favValue);
+  // setFavPlace(favValue.favValue);
+
   useEffect(() => {
     dispatch(getWeather('Udupi'));
   }, []);
 
   const handleFavPlace = () => {
-    console.log('favplace');
     setFavPlace(!favPlace);
     const cityDetails = {
       id: weatherList?.location?.name,
@@ -58,7 +63,6 @@ const HomeScreen = ({navigation}) => {
   };
 
   const handleDeleteFavPlace = () => {
-    console.log('nofavplace');
     setFavPlace(!favPlace);
     dispatch(deleteFavplace({id: weatherList?.location?.name}));
   };

@@ -14,9 +14,12 @@ import backgroundimage from '../../assets/background_android.png';
 import ListView from '../components/ListView';
 import {useDispatch, useSelector} from 'react-redux';
 import favImage from '../../assets/icon_favourite_active.png';
+import {deleteAllFavplace} from '../redux/favourite';
 
 const FavouriteScreen = ({navigation}) => {
   const placeList = useSelector(state => state.favouriteSearch.value);
+
+  const dispatch = useDispatch();
 
   const renderItems = ({item}) => {
     return (
@@ -35,10 +38,9 @@ const FavouriteScreen = ({navigation}) => {
     Alert.alert('', 'Are you sure want to remove all the favourites?', [
       {
         text: 'No',
-        onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'Yes', onPress: () => console.log('OK Pressed')},
+      {text: 'Yes', onPress: () => dispatch(deleteAllFavplace())},
     ]);
   };
 
@@ -55,7 +57,9 @@ const FavouriteScreen = ({navigation}) => {
           />
           <View style={styles.container}>
             <View style={styles.textcontainer}>
-              <Text style={styles.cititext}>6 City added as favourite</Text>
+              <Text style={styles.cititext}>
+                {placeList.length} City added as favourite
+              </Text>
               <TouchableOpacity onPress={handleRemoveFavourite}>
                 <Text style={styles.removetext}>Remove All</Text>
               </TouchableOpacity>
