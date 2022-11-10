@@ -41,7 +41,7 @@ const HomeScreen = ({navigation}) => {
   const favlist = useSelector(state => state.favouriteSearch.value);
 
   const favValue = {...favlist[0]};
-  console.log(favValue.favValue);
+  // console.log(favValue.favValue);
   // setFavPlace(favValue.favValue);
 
   useEffect(() => {
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
   sunicon: {
     height: 67,
     width: 64,
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   degreetext: {

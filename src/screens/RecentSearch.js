@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ImageBackground,
   SafeAreaView,
@@ -15,20 +15,39 @@ import ListView from '../components/ListView';
 import {useDispatch, useSelector} from 'react-redux';
 import favImage from '../../assets/icon_favourite_active.png';
 import nofavImage from '../../assets/icon_favourite.png';
-import {updateStatus} from '../redux/recent';
+import {deleteAllRecentplace, updateStatus} from '../redux/recent';
+import {addFavPlace, deleteFavplace} from '../redux/favourite';
 
 const RecentSearch = ({navigation}) => {
+  const [toggle, setToggle] = useState(false);
   const placeList = useSelector(state => state.recentSearch.value);
   const dispatch = useDispatch();
 
+  const placeDetails = {...placeList[0]};
+
   const handlefavValue = item => {
-    dispatch(updateStatus({id: item.id, favValue: !item.favValue}));
+    if (item.favValue == false) {
+      const cityDetails = {
+        id: item.id,
+        place: item.place,
+        region: item.region,
+        image: item.image,
+        temperature: item.temperature,
+        condition: item.condition,
+      };
+      dispatch(updateStatus({id: item.id, favValue: true}));
+      dispatch(addFavPlace(cityDetails));
+    } else {
+      dispatch(updateStatus({id: item.id, favValue: false}));
+      dispatch(deleteFavplace({id: item.id}));
+    }
   };
 
   const renderItems = ({item}) => {
     return (
       <ListView
         place={item.place}
+        region={item.region}
         image={item.image}
         temperature={item.temperature}
         condition={item.condition}
@@ -42,10 +61,9 @@ const RecentSearch = ({navigation}) => {
     Alert.alert('', 'Are you sure want to remove all the searches?', [
       {
         text: 'No',
-        onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'Yes', onPress: () => console.log('OK Pressed')},
+      {text: 'Yes', onPress: () => dispatch(deleteAllRecentplace())},
     ]);
   };
   return (

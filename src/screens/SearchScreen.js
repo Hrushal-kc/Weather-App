@@ -9,11 +9,14 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import Icon1 from 'react-native-vector-icons/AntDesign';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {addRecentPlace} from '../redux/recent';
 import {getWeather} from '../redux/weatherData';
 import getSearch from '../services/SearchRecomendation';
 
 const SearchScreen = ({navigation}) => {
+  const currentWeatherDetails = useSelector(state => state.weather.list);
+
   const [inputText, setInputText] = useState('');
   const [searchData, setSearchData] = useState('');
 
@@ -32,6 +35,15 @@ const SearchScreen = ({navigation}) => {
   const handleTextPress = async string => {
     dispatch(getWeather(string));
     navigation.goBack();
+    const recentSearchData = {
+      id: currentWeatherDetails?.location?.name,
+      place: currentWeatherDetails?.location?.name,
+      region: currentWeatherDetails?.location?.region,
+      image: `https:${currentWeatherDetails?.current?.condition.icon}`,
+      temperature: currentWeatherDetails?.current?.temp_c,
+      condition: currentWeatherDetails?.current?.condition?.text,
+    };
+    dispatch(addRecentPlace(recentSearchData));
   };
 
   const renderItems = ({item}) => {

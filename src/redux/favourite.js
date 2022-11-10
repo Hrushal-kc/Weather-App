@@ -8,7 +8,7 @@ export const Favourite = createSlice({
   initialState: {value: Data},
   reducers: {
     addFavPlace: (state, action) => {
-      state.value.push(action.payload);
+      state.value.unshift(action.payload);
     },
     deleteFavplace: (state, action) => {
       state.value = state.value.filter(place => place.id !== action.payload.id);

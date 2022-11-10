@@ -10,7 +10,6 @@ const options = {
 };
 
 export const getWeather = createAsyncThunk('redux/getWeather', async string => {
-  console.log(string);
   return fetch(`${BaseURL}/current.json?q=${string}`, options)
     .then(response => response.json())
     .catch(err => console.error(err));

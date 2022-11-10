@@ -14,7 +14,7 @@ import backgroundimage from '../../assets/background_android.png';
 import ListView from '../components/ListView';
 import {useDispatch, useSelector} from 'react-redux';
 import favImage from '../../assets/icon_favourite_active.png';
-import {deleteAllFavplace} from '../redux/favourite';
+import {deleteAllFavplace, deleteFavplace} from '../redux/favourite';
 
 const FavouriteScreen = ({navigation}) => {
   const placeList = useSelector(state => state.favouriteSearch.value);
@@ -30,6 +30,7 @@ const FavouriteScreen = ({navigation}) => {
         temperature={item.temperature}
         condition={item.condition}
         favoriteimage={favImage}
+        favOnpress={() => dispatch(deleteFavplace({id: item.place}))}
       />
     );
   };

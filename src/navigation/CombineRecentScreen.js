@@ -5,7 +5,7 @@ import NoRecentSearch from '../screens/NoRecentSearch';
 import RecentSearch from '../screens/RecentSearch';
 
 const CombineRecentScreen = ({navigation}) => {
-  const placeList = useSelector(state => state.favouriteSearch.value);
+  const placeList = useSelector(state => state.recentSearch.value);
   return (
     <View style={styles.container}>
       {placeList.length == 0 ? (
