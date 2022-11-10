@@ -23,7 +23,6 @@ const FavouriteScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const handleHomeNavigation = async item => {
-    console.log(item.place);
     dispatch(getWeather(item.place));
     navigation.navigate('Home');
   };

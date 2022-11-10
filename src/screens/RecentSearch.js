@@ -45,7 +45,6 @@ const RecentSearch = ({navigation}) => {
   };
 
   const handleHomeNavigation = async item => {
-    console.log(item.place);
     dispatch(getWeather(item.place));
     navigation.navigate('Home');
   };
