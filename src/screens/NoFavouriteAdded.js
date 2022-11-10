@@ -23,6 +23,7 @@ const NoFavourite = ({navigation}) => {
               navigation.navigate('Home');
             }}
             searchIcon={'search1'}
+            searchonPress={() => navigation.navigate('SearchScreen')}
           />
           <View style={styles.container}>
             <Image source={nothingLogo} />
@@ -51,14 +52,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 20,
   },
 
   nothingText: {
+    marginTop: 20,
     height: 21,
     fontSize: 18,
     textAlign: 'center',
     color: '#FFFFFF',
     lineHeight: 21,
+    fontFamily: 'Roboto-Regular',
   },
 });

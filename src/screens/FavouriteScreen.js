@@ -63,6 +63,7 @@ const FavouriteScreen = ({navigation}) => {
               navigation.navigate('Home');
             }}
             searchIcon={'search1'}
+            searchonPress={() => navigation.navigate('SearchScreen')}
           />
           <View style={styles.container}>
             <View style={styles.textcontainer}>
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     fontSize: 13,
     color: '#FFFFFF',
+    fontFamily: 'Roboto-Regular',
   },
 
   removetext: {
@@ -117,6 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#FFFFFF',
     fontWeight: '500',
+    fontFamily: 'Roboto-Regular',
   },
 
   listContainer: {

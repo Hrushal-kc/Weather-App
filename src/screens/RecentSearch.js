@@ -83,6 +83,7 @@ const RecentSearch = ({navigation}) => {
             navigation.navigate('Home');
           }}
           searchIcon={'search1'}
+          searchonPress={() => navigation.navigate('SearchScreen')}
         />
         <View style={styles.container}>
           <View style={styles.textcontainer}>

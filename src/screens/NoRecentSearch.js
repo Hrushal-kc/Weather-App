@@ -23,6 +23,7 @@ const NoRecentSearch = ({navigation}) => {
               navigation.navigate('Home');
             }}
             searchIcon={'search1'}
+            searchonPress={() => navigation.navigate('SearchScreen')}
           />
           <View style={styles.container}>
             <Image source={nothingLogo} />
@@ -55,10 +56,12 @@ const styles = StyleSheet.create({
   },
 
   nothingText: {
+    marginTop: 20,
     height: 21,
     fontSize: 18,
     textAlign: 'center',
     color: '#FFFFFF',
     lineHeight: 21,
+    fontFamily: 'Roboto-Regular',
   },
 });

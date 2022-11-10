@@ -27,7 +27,6 @@ import windlogo from '../../assets/icon_wind_info.png';
 const HomeScreen = ({navigation, route}) => {
   const weatherList = useSelector(state => state.weather.list);
   const [toggle, setToggle] = useState(false);
-  // const [favPlace, setFavPlace] = useState(route.params?.status);
 
   const celciusToggle = () => {
     setToggle(false);
@@ -39,18 +38,11 @@ const HomeScreen = ({navigation, route}) => {
 
   const dispatch = useDispatch();
 
-  const favlist = useSelector(state => state.favouriteSearch.value);
-
-  const favValue = {...favlist[0]};
-  // console.log(favValue.favValue);
-  // setFavPlace(favValue.favValue);
-
   useEffect(() => {
     dispatch(getWeather('Udupi'));
   }, []);
 
   const handleFavPlace = () => {
-    // setFavPlace(!favPlace);
     dispatch(changeFavouriteStatus(true));
     const cityDetails = {
       id: weatherList?.location?.name,
@@ -64,7 +56,6 @@ const HomeScreen = ({navigation, route}) => {
   };
 
   const handleDeleteFavPlace = () => {
-    // setFavPlace(!favPlace);
     dispatch(changeFavouriteStatus(false));
     dispatch(deleteFavplace({id: weatherList?.location?.name}));
   };
@@ -282,6 +273,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     textAlign: 'center',
     marginBottom: 15,
+    fontFamily: 'Roboto-Regular',
   },
   locationtext: {
     height: 21,
@@ -290,6 +282,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 21,
     textAlign: 'center',
+    fontFamily: 'Roboto-Regular',
   },
 
   favouriteContainer: {
@@ -310,6 +303,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     lineHeight: 15,
+    fontFamily: 'Roboto-Regular',
   },
 
   infobox: {
@@ -323,6 +317,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
+    fontFamily: 'Roboto-Regular',
   },
 
   tempicon: {
@@ -345,6 +340,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 70,
     marginBottom: 10,
+    fontFamily: 'Roboto-Regular',
   },
 
   ctext: {
@@ -356,6 +352,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: '#FFFFFF',
+    fontFamily: 'Roboto-Regular',
   },
 
   ftext: {
@@ -367,6 +364,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: '#FFFFFF',
+    fontFamily: 'Roboto-Regular',
   },
 
   weathertext: {
@@ -375,13 +373,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 21,
     textAlign: 'center',
+    fontFamily: 'Roboto-Regular',
   },
 
   bottominfo: {
     flexDirection: 'row',
-    // borderTopWidth: 1,
-    // marginTop: '20%',
-    // borderTopColor: '#FFFFFF',
     justifyContent: 'space-around',
     alignItems: 'center',
     width: 500,
@@ -408,6 +404,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 13,
     paddingHorizontal: 13,
+    fontFamily: 'Roboto-Regular',
   },
 
   temptext: {

@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     width: '60%',
     marginRight: 60,
+    fontFamily: 'Roboto-Regular',
   },
 
   renderContainer: {
