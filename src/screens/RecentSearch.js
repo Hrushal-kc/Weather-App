@@ -17,6 +17,7 @@ import favImage from '../../assets/icon_favourite_active.png';
 import nofavImage from '../../assets/icon_favourite.png';
 import {deleteAllRecentplace, updateStatus} from '../redux/recent';
 import {addFavPlace, deleteFavplace} from '../redux/favourite';
+import {getWeather} from '../redux/weatherData';
 
 const RecentSearch = ({navigation}) => {
   const [toggle, setToggle] = useState(false);
@@ -43,6 +44,12 @@ const RecentSearch = ({navigation}) => {
     }
   };
 
+  const handleHomeNavigation = async item => {
+    console.log(item.place);
+    dispatch(getWeather(item.place));
+    navigation.navigate('Home');
+  };
+
   const renderItems = ({item}) => {
     return (
       <ListView
@@ -53,6 +60,7 @@ const RecentSearch = ({navigation}) => {
         condition={item.condition}
         favOnpress={() => handlefavValue(item)}
         favoriteimage={item.favValue ? favImage : nofavImage}
+        containerOnPress={() => handleHomeNavigation(item)}
       />
     );
   };

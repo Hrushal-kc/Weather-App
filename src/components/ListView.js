@@ -9,26 +9,29 @@ const ListView = ({
   condition,
   favoriteimage,
   favOnpress,
+  containerOnPress,
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.subContainer}>
-        <Text style={styles.mainText}>
-          {place} , {region}
-        </Text>
-        <View style={styles.logocontainer}>
-          <Image source={{uri: image}} style={styles.image} />
-          <View style={styles.textContainer}>
-            <Text style={styles.temptext}>{temperature}</Text>
-            <Text style={styles.ctext}>°C</Text>
+    <TouchableOpacity onPress={containerOnPress}>
+      <View style={styles.container}>
+        <View style={styles.subContainer}>
+          <Text style={styles.mainText}>
+            {place} , {region}
+          </Text>
+          <View style={styles.logocontainer}>
+            <Image source={{uri: image}} style={styles.image} />
+            <View style={styles.textContainer}>
+              <Text style={styles.temptext}>{temperature}</Text>
+              <Text style={styles.ctext}>°C</Text>
+            </View>
+            <Text style={styles.humidityText}>{condition}</Text>
           </View>
-          <Text style={styles.humidityText}>{condition}</Text>
         </View>
+        <TouchableOpacity onPress={favOnpress}>
+          <Image source={favoriteimage} />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={favOnpress}>
-        <Image source={favoriteimage} />
-      </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -36,10 +39,9 @@ export default ListView;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
+    backgroundColor: 'rgba(255,255,255,0.1)',
     flexDirection: 'column',
-    padding: 10,
+    padding: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

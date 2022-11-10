@@ -15,11 +15,18 @@ import ListView from '../components/ListView';
 import {useDispatch, useSelector} from 'react-redux';
 import favImage from '../../assets/icon_favourite_active.png';
 import {deleteAllFavplace, deleteFavplace} from '../redux/favourite';
+import {getWeather} from '../redux/weatherData';
 
 const FavouriteScreen = ({navigation}) => {
   const placeList = useSelector(state => state.favouriteSearch.value);
 
   const dispatch = useDispatch();
+
+  const handleHomeNavigation = async item => {
+    console.log(item.place);
+    dispatch(getWeather(item.place));
+    navigation.navigate('Home');
+  };
 
   const renderItems = ({item}) => {
     return (
@@ -31,6 +38,7 @@ const FavouriteScreen = ({navigation}) => {
         condition={item.condition}
         favoriteimage={favImage}
         favOnpress={() => dispatch(deleteFavplace({id: item.place}))}
+        containerOnPress={() => handleHomeNavigation(item)}
       />
     );
   };
