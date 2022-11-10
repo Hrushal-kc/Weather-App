@@ -18,14 +18,16 @@ import precipitationlogo from '../../assets/icon_precipitation_info.png';
 import humiditylogo from '../../assets/icon_humidity_info.png';
 import backgroundimage from '../../assets/background_android.png';
 import {useDispatch, useSelector} from 'react-redux';
-import {getWeather} from '../redux/weatherData';
+import {changeFavouriteStatus, getWeather} from '../redux/weatherData';
 import moment from 'moment';
 import favImage from '../../assets/icon_favourite_active.png';
 import {addFavPlace, deleteFavplace} from '../redux/favourite';
+import windlogo from '../../assets/icon_wind_info.png';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, route}) => {
+  const weatherList = useSelector(state => state.weather.list);
   const [toggle, setToggle] = useState(false);
-  const [favPlace, setFavPlace] = useState(false);
+  // const [favPlace, setFavPlace] = useState(route.params?.status);
 
   const celciusToggle = () => {
     setToggle(false);
@@ -36,7 +38,6 @@ const HomeScreen = ({navigation}) => {
   };
 
   const dispatch = useDispatch();
-  const weatherList = useSelector(state => state.weather.list);
 
   const favlist = useSelector(state => state.favouriteSearch.value);
 
@@ -49,7 +50,8 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   const handleFavPlace = () => {
-    setFavPlace(!favPlace);
+    // setFavPlace(!favPlace);
+    dispatch(changeFavouriteStatus(true));
     const cityDetails = {
       id: weatherList?.location?.name,
       place: weatherList?.location?.name,
@@ -57,13 +59,13 @@ const HomeScreen = ({navigation}) => {
       image: `https:${weatherList?.current?.condition.icon}`,
       temperature: weatherList?.current?.temp_c,
       condition: weatherList?.current?.condition?.text,
-      favValue: true,
     };
     dispatch(addFavPlace(cityDetails));
   };
 
   const handleDeleteFavPlace = () => {
-    setFavPlace(!favPlace);
+    // setFavPlace(!favPlace);
+    dispatch(changeFavouriteStatus(false));
     dispatch(deleteFavplace({id: weatherList?.location?.name}));
   };
 
@@ -96,7 +98,7 @@ const HomeScreen = ({navigation}) => {
                 {weatherList?.location?.name}, {weatherList?.location?.region}
               </Text>
               <View style={styles.favouriteContainer}>
-                {favPlace ? (
+                {weatherList.isFavourite ? (
                   <TouchableOpacity onPress={handleDeleteFavPlace}>
                     <Image source={favImage} style={styles.favouriteicon} />
                   </TouchableOpacity>
@@ -163,7 +165,8 @@ const HomeScreen = ({navigation}) => {
                 {weatherList?.current?.condition?.text}
               </Text>
             </View>
-            <ScrollView horizontal>
+            <View style={styles.bottomLine}></View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.bottominfo}>
                 <View style={styles.tempcontainer}>
                   <Image source={temperatureicon} />
@@ -193,6 +196,15 @@ const HomeScreen = ({navigation}) => {
                     <Text style={styles.bottomtext}>Humidity</Text>
                     <Text style={styles.temptext}>
                       {weatherList?.current?.humidity}%
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.tempcontainer}>
+                  <Image source={windlogo} style={styles.humiditylogo} />
+                  <View>
+                    <Text style={styles.bottomtext}>Wind Blow</Text>
+                    <Text style={styles.temptext}>
+                      {weatherList?.current?.wind_kph}kph
                     </Text>
                   </View>
                 </View>
@@ -287,8 +299,8 @@ const styles = StyleSheet.create({
   },
 
   favouriteicon: {
-    height: 20,
-    width: 20,
+    height: 21,
+    width: 22,
     marginRight: 5,
   },
 
@@ -367,12 +379,12 @@ const styles = StyleSheet.create({
 
   bottominfo: {
     flexDirection: 'row',
-    borderTopWidth: 1,
-    marginTop: '30%',
-    borderTopColor: '#FFFFFF',
+    // borderTopWidth: 1,
+    // marginTop: '20%',
+    // borderTopColor: '#FFFFFF',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: 400,
+    width: 500,
   },
 
   tempcontainer: {
@@ -380,6 +392,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     marginTop: 30,
+    paddingHorizontal: 100,
   },
 
   precipitationlogo: {
@@ -404,5 +417,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     paddingHorizontal: 14,
+  },
+  bottomLine: {
+    borderTopWidth: 1,
+    marginTop: '20%',
+    borderTopColor: '#FFFFFF',
   },
 });

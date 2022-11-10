@@ -12,6 +12,7 @@ const options = {
 export const getWeather = createAsyncThunk('redux/getWeather', async string => {
   return fetch(`${BaseURL}/current.json?q=${string}`, options)
     .then(response => response.json())
+    .then(response => ({...response, isFavourite: false}))
     .catch(err => console.error(err));
 });
 
@@ -21,7 +22,11 @@ const weatherData = createSlice({
     list: [],
     status: null,
   },
-  reducers: {},
+  reducers: {
+    changeFavouriteStatus: (state, action) => {
+      state.list = {...state.list, isFavourite: action.payload};
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getWeather.pending, (state, action) => {
       state.status = 'loading';
@@ -36,4 +41,5 @@ const weatherData = createSlice({
   },
 });
 
+export const {changeFavouriteStatus} = weatherData.actions;
 export default weatherData.reducer;

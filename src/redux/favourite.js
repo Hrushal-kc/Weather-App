@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import humiditylogo from '../../assets/icon_humidity_info.png';
 
 const Data = [];
 
@@ -8,7 +7,15 @@ export const Favourite = createSlice({
   initialState: {value: Data},
   reducers: {
     addFavPlace: (state, action) => {
-      state.value.unshift(action.payload);
+      let isPresent = false;
+      for (let item of state.value) {
+        if (item.id === action.payload.id) {
+          isPresent = true;
+        }
+      }
+      if (!isPresent) {
+        state.value.unshift(action.payload);
+      }
     },
     deleteFavplace: (state, action) => {
       state.value = state.value.filter(place => place.id !== action.payload.id);

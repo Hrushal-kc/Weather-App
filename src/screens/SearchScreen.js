@@ -34,7 +34,7 @@ const SearchScreen = ({navigation}) => {
 
   const handleTextPress = async string => {
     dispatch(getWeather(string));
-    navigation.goBack();
+    navigation.navigate('Home', {status: false});
     const recentSearchData = {
       id: currentWeatherDetails?.location?.name,
       place: currentWeatherDetails?.location?.name,
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 20,
     width: '100%',
+    alignItems: 'center',
   },
 
   inputText: {
